@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import { SearchingPage } from "./pages/SearchingPage";
 import { OverwievPage } from "./pages/OverwievPage";
 
-const App = ()=> {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Box sx={{
@@ -15,13 +15,10 @@ const App = ()=> {
         <Box >
           <Link to="/:id">Overwiev page</Link>
         </Box>
-      Bilo sto e tuka sto ne se menuva 
+        <SearchingPage />
         <Box>
           <Switch>
-            <Route path="/" exact >
-              <SearchingPage />
-            </Route>
-
+            <Route path="/" exact />
             <Route path="/:id">
               <OverwievPage />
             </Route>
