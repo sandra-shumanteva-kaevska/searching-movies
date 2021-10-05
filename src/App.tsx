@@ -1,14 +1,14 @@
 import React, { useState } from "react"
 import { BrowserRouter, Route, Switch} from "react-router-dom"
-import {Box, Grid, Paper} from "@mui/material"
+import {Box, Grid, Paper, Typography} from "@mui/material"
 import LinearProgress from "@mui/material/LinearProgress"
 import { styled } from "@mui/material/styles"
 import Stack from "@mui/material/Stack"
 
 import { SearchingPage } from "./pages/SearchingPage"
-import { OverwievPage } from "./pages/OverwievPage"
+import { OverviewPage } from "./pages/OverviewPage"
 
-const Item = styled(Paper)(({ theme }) => ({
+const Panel = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
@@ -16,30 +16,34 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const App: React.FC = () => {
-  const [loader, setLoader] = useState(false)
+  const [showLoader, setShowLoader] = useState(false)
 
   return (
     <BrowserRouter>
       <Box sx={{ width: '100%' }}>
-        {loader && 
+        {showLoader && 
         <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
           <LinearProgress color="secondary"/> 
         </Stack>}
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={6}>
-            <Item>
-              <SearchingPage showLoader={setLoader} />
-            </Item>
+            <Panel>
+              <SearchingPage onShowLoader={setShowLoader} />
+            </Panel>
           </Grid>
           <Grid item xs={6}>
-            <Item> 
+            <Panel> 
               <Switch>
-                <Route path="/" exact />
+                <Route path="/" exact>
+                  <Typography variant="h6">
+                    No movie selected
+                  </Typography>
+                </Route>
                 <Route path="/:id">
-                  <OverwievPage showLoader={setLoader} />
+                  <OverviewPage onShowLoader={setShowLoader} />
                 </Route>
               </Switch>
-            </Item>
+            </Panel>
           </Grid>
         </Grid>
       </Box>
